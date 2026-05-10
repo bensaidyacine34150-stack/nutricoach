@@ -227,9 +227,8 @@ body::before {
   border-radius: 14px;
   padding: 14px;
   display: flex; align-items: center; gap: 12px;
-  margin-bottom: 8px;
-  transition: all 0.15s;
-}
+  margin-bottom: 8px;x-api-key
+  transition: all 0.15s;}
 .meal-card:active { background: var(--card2); transform: scale(0.98); }
 .meal-time { background: rgba(200,241,53,0.1); color: var(--lime); font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
 .meal-info { flex: 1; min-width: 0; }
@@ -1254,7 +1253,8 @@ async function sendMsg(){
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','x-api-key':'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
+','anthropic-version':'2023-06-01'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:chatHistory})
     });
     const data=await res.json();
