@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- App Identity -->
+  <key>CFBundleDisplayName</key>
+  <string>NutriCoach AI</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.nutricoach.ai</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.0</string>
+  <key>CFBundleName</key>
+  <string>NutriCoach</string>
+
+  <!-- Appearance -->
+  <key>UIStatusBarStyle</key>
+  <string>UIStatusBarStyleLightContent</string>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <false/>
+  <key>UIUserInterfaceStyle</key>
+  <string>Dark</string>
+
+  <!-- Orientation -->
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+  </array>
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+
+  <!-- Network -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <false/>
+    <key>NSExceptionDomains</key>
+    <dict>
+      <key>api.anthropic.com</key>
+      <dict>
+        <key>NSExceptionAllowsInsecureHTTPLoads</key>
+        <false/>
+        <key>NSIncludesSubdomains</key>
+        <true/>
+      </dict>
+      <key>fonts.googleapis.com</key>
+      <dict>
+        <key>NSExceptionAllowsInsecureHTTPLoads</key>
+        <false/>
+        <key>NSIncludesSubdomains</key>
+        <true/>
+      </dict>
+    </dict>
+  </dict>
+
+  <!-- Privacy Descriptions (obligatoires pour App Store) -->
+  <key>NSCameraUsageDescription</key>
+  <string>NutriCoach AI peut utiliser la caméra pour scanner des aliments et enregistrer tes repas.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>NutriCoach AI peut accéder à tes photos pour personnaliser ton profil.</string>
+  <key>NSHealthShareUsageDescription</key>
+  <string>NutriCoach AI peut lire tes données de santé pour améliorer tes recommandations.</string>
+  <key>NSHealthUpdateUsageDescription</key>
+  <string>NutriCoach AI peut enregistrer tes données nutritionnelles dans Santé.</string>
+  <key>NSMotionUsageDescription</key>
+  <string>NutriCoach AI peut accéder aux données de mouvement pour calculer tes calories brûlées.</string>
+
+  <!-- Capacitor -->
+  <key>WKAppBoundDomains</key>
+  <array>
+    <string>api.anthropic.com</string>
+    <string>fonts.googleapis.com</string>
+  </array>
+</dict>
+</plist>
