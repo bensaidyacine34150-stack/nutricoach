@@ -10,12 +10,15 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Create www directory
+        run: mkdir -p www && cp index.html www/
 
       - name: Install dependencies
         run: npm install
@@ -38,4 +41,5 @@ jobs:
           -scheme App \
           -configuration Release \
           -archivePath ios/App/App.xcarchive \
-          archive
+          archive \
+          CODE_SIGNING_ALLOWED=NO
