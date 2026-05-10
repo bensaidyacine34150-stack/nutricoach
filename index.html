@@ -1251,7 +1251,7 @@ async function sendMsg(){
   const u=S.user, p=S.prog;
   const sys=`Tu es Coach Nutri AI, expert nutrition, chaleureux et motivant. Profil : ${u.name}, ${u.age}ans, ${u.sex==='H'?'Homme':'Femme'}, ${u.weight}kg, ${u.height}cm, objectif: ${u.goal}, régime: ${u.diet}. Programme: ${p.calories}kcal/j, ${p.protein}g prot, ${p.carbs}g gluc, ${p.fat}g lip. Réponds en français, de manière précise, personnalisée et motivante. Sois concis sur mobile.`;
   try{
-    const res=await fetch('https://nutricoach-server.onrender.com',{
+    const res=await fetch('https://nutricoach-server.onrender.com/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:chatHistory})
