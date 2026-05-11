@@ -542,8 +542,8 @@ body::before {
       </select>
     </div>
     <div style="display:flex;gap:10px;margin-top:4px;">
-      <button class="btn btn-ghost" style="flex:0 0 auto;padding:14px 18px;" onclick="showOb(1)">←</button>
-      <button class="btn btn-primary btn-full" onclick="obStep2()">Continuer →</button>
+      <div class="btn btn-ghost" style="flex:0 0 auto;padding:14px 18px;cursor:pointer;" ontouchstart="showOb(1)" onclick="showOb(1)">←</div>
+      <div class="btn btn-primary btn-full" style="cursor:pointer;text-align:center;" ontouchstart="obStep2()" onclick="obStep2()">Continuer →</div>
     </div>
   </div>
 
