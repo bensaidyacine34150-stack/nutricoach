@@ -1305,6 +1305,7 @@ async function sendMsg(){
   const input=document.getElementById('chatInput');
   const text=input.value.trim();
   if(!text||isLoading) return;
+if(!S.isPremium && chatHistory.length >= 6){ showPremium(); return; }
   input.value=''; isLoading=true;
   document.getElementById('sendBtn').disabled=true;
   addMsg('user',text);
@@ -1366,7 +1367,26 @@ function showToast(icon,msg){
   const t=document.getElementById('toast'); t.classList.add('show');
   clearTimeout(tTimer); tTimer=setTimeout(()=>t.classList.remove('show'),2600);
 }
-
+// ── PREMIUM ────────────────────────────────────────────────────
+let freeMessages = 3;
+function checkPremium(){
+  return S.isPremium || false;
+}
+function showPremium(){
+  const el = document.getElementById('premiumOverlay');
+  if(el) el.style.display = 'flex';
+}
+function closePremium(){
+  const el = document.getElementById('premiumOverlay');
+  if(el) el.style.display = 'none';
+}
+function startPremium(){
+  // Ici on connectera Apple In-App Purchase
+  showToast('👑','Abonnement Premium activé !');
+  S.isPremium = true;
+  save();
+  closePremium();
+}
 // ── AUTO LAUNCH ────────────────────────────────────────────────
 if(S.user.name&&S.user.weight&&S.prog.calories){
   document.getElementById('onboarding').style.display='none';
