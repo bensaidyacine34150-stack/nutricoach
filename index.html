@@ -827,7 +827,24 @@ body::before {
     </div>
 </nav>
 </div>
-
+<!-- PREMIUM OVERLAY -->
+<div class="premium-overlay" id="premiumOverlay">
+  <div class="premium-icon">👑</div>
+  <div class="premium-title">Passe Premium</div>
+  <div class="premium-sub">Débloques toutes les fonctionnalités pour atteindre tes objectifs plus vite !</div>
+  <div class="premium-features">
+    <div class="premium-feature"><span>🤖</span><span>Coach IA illimité</span></div>
+    <div class="premium-feature"><span>📊</span><span>Suivi complet des macros</span></div>
+    <div class="premium-feature"><span>📔</span><span>Journal alimentaire complet</span></div>
+    <div class="premium-feature"><span>📈</span><span>Courbe de poids & progrès</span></div>
+    <div class="premium-feature"><span>🏆</span><span>Succès & achievements</span></div>
+  </div>
+  <div style="width:100%;margin-bottom:12px;">
+    <div style="font-size:0.75rem;color:var(--lime);margin-bottom:8px;">✨ 7 jours gratuits puis 5,99€/mois</div>
+    <div class="btn btn-primary btn-full" onclick="startPremium()" style="cursor:pointer;text-align:center;">Essayer gratuitement 7 jours</div>
+  </div>
+  <div class="btn btn-ghost btn-full" onclick="closePremium()" style="cursor:pointer;text-align:center;">Continuer en gratuit</div>
+</div>
 <div class="toast" id="toast"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
 
 <script>
