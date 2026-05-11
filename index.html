@@ -1305,10 +1305,10 @@ async function sendMsg(){
   const input=document.getElementById('chatInput');
   const text=input.value.trim();
   if(!text||isLoading) return;
-if(!S.isPremium && chatHistory.length >= 6){ showPremium(); return; }
+if(!S.isPremium && S.msgCount && S.msgCount >= 3){ showPremium(); return; }
   input.value=''; isLoading=true;
   document.getElementById('sendBtn').disabled=true;
-  addMsg('user',text);
+  addMsg('user',text);S.msgCount = (S.msgCount || 0) + 1; save();
   chatHistory.push({role:'user',content:text});
   showTyping();
   const u=S.user, p=S.prog;
