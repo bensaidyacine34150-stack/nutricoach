@@ -806,7 +806,11 @@ function save(){ try{ localStorage.setItem('nc_v2',JSON.stringify(S)); }catch(e)
 // ── ONBOARDING ─────────────────────────────────────────────────
 let obGoal='perte';
 function showOb(n){
-  [1,2,3].forEach(i=>{ document.getElementById('ob'+i).style.display=i===n?'block':'none'; });
+  [1,2,3].forEach(i=>{ 
+    const el=document.getElementById('ob'+i);
+    el.style.display=i===n?'flex':'none';
+    el.style.flexDirection='column';
+  });
   ['os1','os2','os3'].forEach((id,i)=>{ const el=document.getElementById(id); el.className='ob-step'+(i+1<=n?' active':''); });
 }
 function selectGoal(el,g){
