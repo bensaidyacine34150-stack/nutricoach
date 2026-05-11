@@ -450,7 +450,45 @@ body::before {
   font-size: 0.85rem;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
-
+/* PREMIUM */
+.premium-overlay {
+  position: fixed; inset: 0;
+  background: rgba(5,11,20,0.97);
+  z-index: 500;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 30px 24px;
+  text-align: center;
+  display: none;
+}
+.premium-icon {
+  background: linear-gradient(135deg, var(--lime), var(--teal));
+  border-radius: 20px; padding: 16px;
+  font-size: 2.5rem; margin-bottom: 20px;
+  width: 80px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+}
+.premium-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, var(--lime), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.premium-sub {
+  color: var(--muted); font-size: 0.88rem;
+  line-height: 1.6; margin-bottom: 24px;
+}
+.premium-features {
+  text-align: left; width: 100%;
+  margin-bottom: 24px;
+}
+.premium-feature {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
 /* SPACER */
 .page-spacer { height: 24px; }
 </style>
