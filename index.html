@@ -844,7 +844,10 @@ function obStep2(){
 }
 function launchApp(){
   save();
-  document.getElementById('onboarding').style.display='none';
+  const ob=document.getElementById('onboarding');
+  ob.style.display='none';
+  ob.style.pointerEvents='none';
+  ob.style.zIndex='-1';
   document.getElementById('appShell').style.display='flex';
   initApp();
 }
@@ -1275,9 +1278,10 @@ function showPage(page,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   const el=document.getElementById('page-'+page); if(el) el.classList.add('active');
   if(btn) btn.classList.add('active');
-  document.getElementById('scrollArea').scrollTop=0;
+  const sa=document.getElementById('scrollArea'); if(sa) sa.scrollTop=0;
   if(page==='progres'){renderProgress();renderAch();}
   if(page==='nutrition'){renderFoodLog();}
+  if(page==='coach'){renderQuickPrompts();initChat();}
 }
 function switchNutriTab(tab,el){
   ['repas','aliments','journal'].forEach(t=>{ const e=document.getElementById('nutri-'+t); if(e) e.style.display=t===tab?'block':'none'; });
