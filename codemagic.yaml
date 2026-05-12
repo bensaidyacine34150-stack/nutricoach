@@ -19,6 +19,17 @@ workflows:
         script: npx cap add ios || true
       - name: Sync Capacitor
         script: npx cap sync ios
+      - name: Fix Podfile signing
+        script: |
+          echo "post_install do |installer|
+            installer.pods_project.targets.each do |target|
+              target.build_configurations.each do |config|
+                config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+                config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
+                config.build_settings['CODE_SIGN_IDENTITY'] = ''
+              end
+            end
+          end" >> ios/App/Podfile
       - name: Install CocoaPods
         script: cd ios/App && pod install
       - name: Create ExportOptions.plist
@@ -46,10 +57,6 @@ workflows:
           </dict>
           </plist>
           EOF
-      - name: Fix Pods signing
-        script: |
-          sed -i '' 's/CODE_SIGN_IDENTITY = ".*"/CODE_SIGN_IDENTITY = ""/g' ios/App/Pods/Pods.xcodeproj/project.pbxproj || true
-          sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' ios/App/Pods/Pods.xcodeproj/project.pbxproj || true
       - name: Build iOS
         script: |
           xcodebuild -workspace ios/App/App.xcworkspace \
