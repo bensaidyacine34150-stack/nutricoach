@@ -74,10 +74,10 @@ workflows:
     artifacts:
       - ios/App/export/*.ipa
 
-    publishing:
+   publishing:
       app_store_connect:
         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
-        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
-        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        key_id: F63VFB7L7F
+        issuer_id: a4edd9ef-1ccf-429a-8f8f-49950b9207f8
         submit_to_testflight: false
         submit_to_app_store: true
