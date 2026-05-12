@@ -81,13 +81,13 @@ workflows:
           -exportPath ios/App/export \
           -exportOptionsPlist ios/App/ExportOptions.plist \
           -allowProvisioningUpdates
-      - name: Upload to App Store
+    - name: Upload to App Store
         script: |
+          echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
+          chmod 600 /tmp/AuthKey.p8
           app-store-connect publish \
           --path ios/App/export/App.ipa \
           --key-id F63VFB7L7F \
           --issuer-id a4edd9ef-1ccf-429a-8f8f-49950b9207f8 \
-          --private-key @file:$CM_BUILD_DIR/AuthKey_F63VFB7L7F.p8 \
+          --private-key @file:/tmp/AuthKey.p8 \
           --app-store
-    artifacts:
-      - ios/App/export/*.ipa
