@@ -52,6 +52,10 @@ workflows:
           -scheme App \
           -configuration Release \
           -archivePath ios/App/App.xcarchive \
+          DEVELOPMENT_TEAM=PZN5YABHWZ \
+          PROVISIONING_PROFILE_SPECIFIER="NutriCoach Distribution" \
+          CODE_SIGN_IDENTITY="Apple Distribution" \
+          CODE_SIGN_STYLE=Manual \
           archive \
           -allowProvisioningUpdates
       - name: Export IPA
