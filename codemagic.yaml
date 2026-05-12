@@ -9,25 +9,18 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
-
       - name: Build web app
         script: npm run build
-
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
-
       - name: Create www directory
         script: mkdir -p www && cp index.html www/
-
       - name: Add iOS platform
         script: npx cap add ios || true
-
       - name: Sync Capacitor
         script: npx cap sync ios
-
       - name: Install CocoaPods
         script: cd ios/App && pod install
-
       - name: Create ExportOptions.plist
         script: |
           cat > ios/App/ExportOptions.plist << EOF
@@ -53,7 +46,6 @@ workflows:
           </dict>
           </plist>
           EOF
-
       - name: Build iOS
         script: |
           xcodebuild -workspace ios/App/App.xcworkspace \
@@ -62,7 +54,6 @@ workflows:
           -archivePath ios/App/App.xcarchive \
           archive \
           -allowProvisioningUpdates
-
       - name: Export IPA
         script: |
           xcodebuild -exportArchive \
@@ -70,11 +61,9 @@ workflows:
           -exportPath ios/App/export \
           -exportOptionsPlist ios/App/ExportOptions.plist \
           -allowProvisioningUpdates
-
     artifacts:
       - ios/App/export/*.ipa
-
-   publishing:
+    publishing:
       app_store_connect:
         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
         key_id: F63VFB7L7F
