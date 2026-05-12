@@ -6,6 +6,11 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.yacine.nutricoach
+      vars:
+        KEY_ID: F63VFB7L7F
+        ISSUER_ID: a4edd9ef-1ccf-429a-8f8f-49950b9207f8
+      groups:
+        - app_store
     scripts:
       - name: Install dependencies
         script: npm install
@@ -81,7 +86,7 @@ workflows:
           -exportPath ios/App/export \
           -exportOptionsPlist ios/App/ExportOptions.plist \
           -allowProvisioningUpdates
-    - name: Upload to App Store
+      - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
           chmod 600 /tmp/AuthKey.p8
@@ -91,3 +96,5 @@ workflows:
           --issuer-id a4edd9ef-1ccf-429a-8f8f-49950b9207f8 \
           --private-key @file:/tmp/AuthKey.p8 \
           --app-store
+    artifacts:
+      - ios/App/export/*.ipa
