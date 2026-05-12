@@ -2,6 +2,8 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 60
+    integrations:
+      app_store_connect: Codemagic Admin
     environment:
       ios_signing:
         distribution_type: app_store
@@ -83,8 +85,6 @@ workflows:
           -allowProvisioningUpdates
     artifacts:
       - ios/App/export/*.ipa
-   integrations:
-      app_store_connect: Codemagic Admin
     publishing:
       app_store_connect:
         submit_to_testflight: true
