@@ -810,23 +810,22 @@ body::before {
 
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav" id="bottomNav">
-    <div class="nav-btn active" id="nav-dashboard" style="cursor:pointer" ontouchstart="showPage('dashboard',document.getElementById('nav-dashboard'))" onclick="showPage('dashboard',document.getElementById('nav-dashboard'))">
-      <span class="nav-icon">📊</span><span class="nav-label">Accueil</span>
-    </div>
-    <div class="nav-btn" id="nav-programme" style="cursor:pointer" ontouchstart="showPage('programme',document.getElementById('nav-programme'))" onclick="showPage('programme',document.getElementById('nav-programme'))">
-      <span class="nav-icon">🗓️</span><span class="nav-label">Programme</span>
-    </div>
-    <div class="nav-btn" id="nav-nutrition" style="cursor:pointer" ontouchstart="showPage('nutrition',document.getElementById('nav-nutrition'))" onclick="showPage('nutrition',document.getElementById('nav-nutrition'))">
-      <span class="nav-icon">🍽️</span><span class="nav-label">Nutrition</span>
-    </div>
-    <div class="nav-btn" id="nav-coach" style="cursor:pointer" ontouchstart="showPage('coach',document.getElementById('nav-coach'))" onclick="showPage('coach',document.getElementById('nav-coach'))">
-      <span class="nav-icon">🤖</span><span class="nav-label">Coach IA</span>
-    </div>
-    <div class="nav-btn" id="nav-progres" style="cursor:pointer" ontouchstart="showPage('progres',document.getElementById('nav-progres'))" onclick="showPage('progres',document.getElementById('nav-progres'))">
-      <span class="nav-icon">📈</span><span class="nav-label">Progrès</span>
-    </div>
+  <div class="nav-btn active" id="nav-dashboard" style="cursor:pointer" onclick="showPage('dashboard',this)" ontouchend="event.preventDefault();showPage('dashboard',this)">
+    <span class="nav-icon">📊</span><span class="nav-label">Accueil</span>
+  </div>
+  <div class="nav-btn" id="nav-programme" style="cursor:pointer" onclick="showPage('programme',this)" ontouchend="event.preventDefault();showPage('programme',this)">
+    <span class="nav-icon">🗓️</span><span class="nav-label">Programme</span>
+  </div>
+  <div class="nav-btn" id="nav-nutrition" style="cursor:pointer" onclick="showPage('nutrition',this)" ontouchend="event.preventDefault();showPage('nutrition',this)">
+    <span class="nav-icon">🍽️</span><span class="nav-label">Nutrition</span>
+  </div>
+  <div class="nav-btn" id="nav-coach" style="cursor:pointer" onclick="showPage('coach',this)" ontouchend="event.preventDefault();showPage('coach',this)">
+    <span class="nav-icon">🤖</span><span class="nav-label">Coach IA</span>
+  </div>
+  <div class="nav-btn" id="nav-progres" style="cursor:pointer" onclick="showPage('progres',this)" ontouchend="event.preventDefault();showPage('progres',this)">
+    <span class="nav-icon">📈</span><span class="nav-label">Progrès</span>
+  </div>
 </nav>
-</div>
 <!-- PREMIUM OVERLAY -->
 <div class="premium-overlay" id="premiumOverlay">
   <div class="premium-icon">👑</div>
@@ -1331,10 +1330,15 @@ if(!S.isPremium && S.msgCount && S.msgCount >= 3){ showPremium(); return; }
 // ── NAVIGATION ─────────────────────────────────────────────────
 function showPage(page,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById('page-'+page); if(el) el.classList.add('active');
-  if(btn) btn.classList.add('active');
-  const sa=document.getElementById('scrollArea'); if(sa) sa.scrollTop=0;
+  document.querySelectorAll('.nav-btn, .nav-btn *').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el) el.classList.add('active');
+  if(btn){
+    const navBtn=btn.closest ? btn.closest('.nav-btn') : btn;
+    if(navBtn) navBtn.classList.add('active');
+  }
+  const sa=document.getElementById('scrollArea');
+  if(sa) sa.scrollTop=0;
   if(page==='progres'){renderProgress();renderAch();}
   if(page==='nutrition'){renderFoodLog();}
   if(page==='coach'){renderQuickPrompts();initChat();}
