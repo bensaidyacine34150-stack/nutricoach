@@ -426,15 +426,14 @@ body::before {
   -webkit-overflow-scrolling: touch;
   padding: var(--safe-top) 20px var(--safe-bot);
   display: flex; flex-direction: column;
+  transition: opacity 0.3s;
 }
-.ob-header { text-align: center; padding: 32px 0 24px; }
-.ob-logo { width: 64px; height: 64px; background: linear-gradient(135deg, var(--lime), var(--teal)); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 18px; box-shadow: 0 0 32px rgba(200,241,53,0.25); }
-.ob-title { font-family: 'Clash Display', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 6px; background: linear-gradient(90deg, var(--lime), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.ob-sub { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
-.ob-steps { display: flex; justify-content: center; gap: 6px; margin: 16px 0; }
-.ob-step { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: all 0.3s; }
-.ob-step.active { background: var(--lime); width: 20px; border-radius: 4px; }
-
+#onboarding.hidden {
+  display: none !important;
+  pointer-events: none !important;
+  z-index: -999 !important;
+  visibility: hidden !important;
+}
 /* TOAST */
 .toast {
   position: fixed; bottom: calc(var(--safe-bot) + 80px); left: 20px; right: 20px;
@@ -899,10 +898,14 @@ function obStep2(){
 function launchApp(){
   save();
   const ob=document.getElementById('onboarding');
+  ob.classList.add('hidden');
   ob.style.display='none';
   ob.style.pointerEvents='none';
-  ob.style.zIndex='-1';
-  document.getElementById('appShell').style.display='flex';
+  ob.style.zIndex='-999';
+  ob.style.visibility='hidden';
+  const app=document.getElementById('appShell');
+  app.style.display='flex';
+  app.style.zIndex='1';
   initApp();
 }
 
@@ -1393,7 +1396,12 @@ function startPremium(){
 }
 // ── AUTO LAUNCH ────────────────────────────────────────────────
 if(S.user.name&&S.user.weight&&S.prog.calories){
-  document.getElementById('onboarding').style.display='none';
+  const ob=document.getElementById('onboarding');
+  ob.classList.add('hidden');
+  ob.style.display='none';
+  ob.style.pointerEvents='none';
+  ob.style.zIndex='-999';
+  ob.style.visibility='hidden';
   document.getElementById('appShell').style.display='flex';
   initApp();
 }
