@@ -143,7 +143,7 @@ body::before {
 }
 .nav-btn {
   flex: 1; display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
+  align-items: center; justify-content: center; gap: 3px;
   padding: 6px 4px;
   cursor: pointer;
   transition: all 0.2s;
@@ -151,6 +151,8 @@ body::before {
   color: var(--muted);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  touch-action: manipulation;
+  min-height: 50px;
 }
 .nav-btn.active { color: var(--lime); }
 .nav-btn.active .nav-icon { transform: scale(1.15); }
