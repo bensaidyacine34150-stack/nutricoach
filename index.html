@@ -134,26 +134,28 @@ body::before {
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   display: flex;
-  padding: 0;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
   flex-shrink: 0;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  touch-action: manipulation;
-  height: 60px;
+  padding-bottom: env(safe-area-inset-bottom);
+  height: auto;
 }
 .nav-btn {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 3px;
-  padding: 6px 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  border: none; background: none;
   color: var(--muted);
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  touch-action: manipulation;
-  min-height: 50px;
+  min-height: 56px;
 }
 .nav-btn.active { color: var(--lime); }
 .nav-btn.active .nav-icon { transform: scale(1.15); }
