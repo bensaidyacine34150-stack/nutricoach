@@ -135,13 +135,8 @@ body::before {
   border-top: 1px solid var(--border);
   display: flex;
   flex-shrink: 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom);
-  height: auto;
 }
 .nav-btn {
   flex: 1;
@@ -149,13 +144,13 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 4px;
+  gap: 3px;
+  padding: 10px 4px 10px;
   cursor: pointer;
   color: var(--muted);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  min-height: 56px;
 }
 .nav-btn.active { color: var(--lime); }
 .nav-btn.active .nav-icon { transform: scale(1.15); }
@@ -816,29 +811,29 @@ body::before {
   </div><!-- end scroll-area -->
 
   <!-- BOTTOM NAV -->
-  <nav class="bottom-nav" id="bottomNav">
-  <div onclick="showPage('dashboard',this)" ontouchend="event.preventDefault();showPage('dashboard',this)" class="nav-btn active" id="nav-dashboard" style="cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;min-height:60px;touch-action:manipulation;">
-    <span style="font-size:1.4rem;line-height:1;">📊</span>
-    <span style="font-size:0.6rem;font-weight:600;margin-top:3px;">Accueil</span>
+ <nav class="bottom-nav" id="bottomNav">
+  <div onclick="showPage('dashboard',this)" ontouchend="event.preventDefault();showPage('dashboard',this)" class="nav-btn active" id="nav-dashboard">
+    <span class="nav-icon">📊</span>
+    <span class="nav-label">Accueil</span>
   </div>
-  <div onclick="showPage('programme',this)" ontouchend="event.preventDefault();showPage('programme',this)" class="nav-btn" id="nav-programme" style="cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;min-height:60px;touch-action:manipulation;">
-    <span style="font-size:1.4rem;line-height:1;">🗓️</span>
-    <span style="font-size:0.6rem;font-weight:600;margin-top:3px;">Programme</span>
+  <div onclick="showPage('programme',this)" ontouchend="event.preventDefault();showPage('programme',this)" class="nav-btn" id="nav-programme">
+    <span class="nav-icon">🗓️</span>
+    <span class="nav-label">Programme</span>
   </div>
-  <div onclick="showPage('nutrition',this)" ontouchend="event.preventDefault();showPage('nutrition',this)" class="nav-btn" id="nav-nutrition" style="cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;min-height:60px;touch-action:manipulation;">
-    <span style="font-size:1.4rem;line-height:1;">🍽️</span>
-    <span style="font-size:0.6rem;font-weight:600;margin-top:3px;">Nutrition</span>
+  <div onclick="showPage('nutrition',this)" ontouchend="event.preventDefault();showPage('nutrition',this)" class="nav-btn" id="nav-nutrition">
+    <span class="nav-icon">🍽️</span>
+    <span class="nav-label">Nutrition</span>
   </div>
-  <div onclick="showPage('coach',this)" ontouchend="event.preventDefault();showPage('coach',this)" class="nav-btn" id="nav-coach" style="cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;min-height:60px;touch-action:manipulation;">
-    <span style="font-size:1.4rem;line-height:1;">🤖</span>
-    <span style="font-size:0.6rem;font-weight:600;margin-top:3px;">Coach IA</span>
+  <div onclick="showPage('coach',this)" ontouchend="event.preventDefault();showPage('coach',this)" class="nav-btn" id="nav-coach">
+    <span class="nav-icon">🤖</span>
+    <span class="nav-label">Coach IA</span>
   </div>
-  <div onclick="showPage('progres',this)" ontouchend="event.preventDefault();showPage('progres',this)" class="nav-btn" id="nav-progres" style="cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;min-height:60px;touch-action:manipulation;">
-    <span style="font-size:1.4rem;line-height:1;">📈</span>
-    <span style="font-size:0.6rem;font-weight:600;margin-top:3px;">Progrès</span>
+  <div onclick="showPage('progres',this)" ontouchend="event.preventDefault();showPage('progres',this)" class="nav-btn" id="nav-progres">
+    <span class="nav-icon">📈</span>
+    <span class="nav-label">Progrès</span>
   </div>
 </nav>
- 
+  
 <!-- PREMIUM OVERLAY -->
 <div class="premium-overlay" id="premiumOverlay">
   <div class="premium-icon">👑</div>
