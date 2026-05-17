@@ -63,6 +63,7 @@ body::before {
   height: 100dvh;
   position: relative;
   z-index: 1;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* TOP BAR */
@@ -604,7 +605,7 @@ body::before {
 </div>
 
 <!-- APP -->
-<div class="app" id="appShell" style="display:none;position:relative;z-index:100">
+<div class="app" id="appShell" style="display:none">
   <!-- TOP BAR -->
   <div class="topbar">
     <div class="app-logo">🥦</div>
