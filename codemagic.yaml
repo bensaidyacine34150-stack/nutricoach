@@ -67,4 +67,5 @@ workflows:
           chmod 600 /tmp/AuthKey.p8
           xcrun altool --upload-app --type ios --file $CM_BUILD_DIR/export/App.ipa --apiKey $KEY_ID --apiIssuer $ISSUER_ID --private-key /tmp/AuthKey.p8
     artifacts:
-      $CM_BUILD_DIR/export/*.ipa
+      - $CM_BUILD_DIR/export/*.ipa
+      
