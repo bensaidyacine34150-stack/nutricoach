@@ -89,7 +89,7 @@ workflows:
           -exportPath ios/App/export \
           -exportOptionsPlist ios/App/ExportOptions.plist \
           -allowProvisioningUpdates
-     - name: Upload to App Store
+      - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
           chmod 600 /tmp/AuthKey.p8
