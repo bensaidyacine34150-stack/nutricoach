@@ -60,11 +60,11 @@ workflows:
           </dict>
           </plist>
           EOF
-          xcodebuild -exportArchive -archivePath ios/App/App.xcarchive -exportPath ios/App/export -exportOptionsPlist /tmp/ExportOptions.plist
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/App.xcarchive -exportPath $CM_BUILD_DIR/export -exportOptionsPlist /tmp/ExportOptions.plist
       - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
           chmod 600 /tmp/AuthKey.p8
-          xcrun altool --upload-app --type ios --file ios/App/export/App.ipa --apiKey $KEY_ID --apiIssuer $ISSUER_ID --private-key /tmp/AuthKey.p8
+          xcrun altool --upload-app --type ios --file $CM_BUILD_DIR/export/App.ipa --apiKey $KEY_ID --apiIssuer $ISSUER_ID --private-key /tmp/AuthKey.p8
     artifacts:
-      - ios/App/export/*.ipa
+      $CM_BUILD_DIR/export/*.ipa
