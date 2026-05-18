@@ -80,12 +80,19 @@ workflows:
       - name: Upload to App Store
         script: |
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "$APP_STORE_KEY_CONTENT" > ~/.appstoreconnect/private_keys/AuthKey_F63VFB7L7F.p8
-          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_F63VFB7L7F.p8
+          cat > ~/.appstoreconnect/private_keys/AuthKey_4DFLDHAY64.p8 << 'EOF'
+          -----BEGIN PRIVATE KEY-----
+          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg3k6jLpgZLoWy6ScU
+          6cs9p3acxdNDC3ugX5XpwYHyCnSgCgYIKoZIzj0DAQehRANCAASy1Syfo8DIvy0G
+          cqKlOJaNLsGaJSNHCc8D0DalvWgO7OO7SulLNQk5bEL99Hl/zUQGMQs7/zGnUWdv
+          bmOFngsr
+          -----END PRIVATE KEY-----
+          EOF
+          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_4DFLDHAY64.p8
           xcrun altool --upload-app \
           --type ios \
           --file /tmp/export/App.ipa \
-          --apiKey F63VFB7L7F \
+          --apiKey 4DFLDHAY64 \
           --apiIssuer a4edd9ef-1ccf-429a-8f8f-49950b9207f8
     artifacts:
       - /tmp/export/*.ipa
