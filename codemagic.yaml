@@ -19,7 +19,10 @@ workflows:
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
       - name: Create www directory
-        script: mkdir -p www && cp index.html www/
+        script: |
+          mkdir -p www && cp index.html www/
+          mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
+          cp icon.png ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
       - name: Add iOS platform
         script: npx cap add ios || true
       - name: Sync Capacitor
@@ -86,15 +89,15 @@ workflows:
           -exportPath ios/App/export \
           -exportOptionsPlist ios/App/ExportOptions.plist \
           -allowProvisioningUpdates
-      - name: Upload to App Store
+     - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
           chmod 600 /tmp/AuthKey.p8
-          app-store-connect publish \
-          --path ios/App/export/App.ipa \
-          --key-id F63VFB7L7F \
-          --issuer-id a4edd9ef-1ccf-429a-8f8f-49950b9207f8 \
-          --private-key @file:/tmp/AuthKey.p8 \
-          --app-store
+          xcrun altool --upload-app \
+          --type ios \
+          --file ios/App/export/App.ipa \
+          --apiKey F63VFB7L7F \
+          --apiIssuer a4edd9ef-1ccf-429a-8f8f-49950b9207f8 \
+          --private-key /tmp/AuthKey.p8
     artifacts:
       - ios/App/export/*.ipa
