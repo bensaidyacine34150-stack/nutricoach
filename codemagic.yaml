@@ -6,6 +6,8 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.yacine.nutricoach
+        certificate: NutriCoach Distribution
+        provisioning_profile: NutriCoach Distribution
       groups:
         - app_store
     scripts:
@@ -21,9 +23,7 @@ workflows:
         script: npx cap sync ios
       - name: Fix Pods signing
         script: |
-          cd ios/App
-          sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' App.xcodeproj/project.pbxproj || true
-          sed -i '' '/PROVISIONING_PROFILE_SPECIFIER/d' App.xcodeproj/project.pbxproj || true
+          find ios/App/Pods -name "*.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' {} \; || true
       - name: Install CocoaPods
         script: cd ios/App && pod install
       - name: Build iOS
@@ -33,9 +33,10 @@ workflows:
           -configuration Release \
           -archivePath ios/App/App.xcarchive \
           DEVELOPMENT_TEAM=PZN5YABHWZ \
-          CODE_SIGN_STYLE=Automatic \
+          CODE_SIGN_STYLE=Manual \
+          CODE_SIGN_IDENTITY="Apple Distribution: Yacine Bensaid (PZN5YABHWZ)" \
+          PROVISIONING_PROFILE_SPECIFIER="NutriCoach Distribution" \
           archive \
-          -allowProvisioningUpdates \
           -destination "generic/platform=iOS"
       - name: Export IPA
         script: |
@@ -49,7 +50,12 @@ workflows:
               <key>teamID</key>
               <string>PZN5YABHWZ</string>
               <key>signingStyle</key>
-              <string>automatic</string>
+              <string>manual</string>
+              <key>provisioningProfiles</key>
+              <dict>
+                  <key>com.yacine.nutricoach</key>
+                  <string>NutriCoach Distribution</string>
+              </dict>
               <key>uploadSymbols</key>
               <true/>
               <key>compileBitcode</key>
@@ -60,8 +66,7 @@ workflows:
           xcodebuild -exportArchive \
           -archivePath ios/App/App.xcarchive \
           -exportPath ios/App/export \
-          -exportOptionsPlist /tmp/ExportOptions.plist \
-          -allowProvisioningUpdates
+          -exportOptionsPlist /tmp/ExportOptions.plist
       - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
