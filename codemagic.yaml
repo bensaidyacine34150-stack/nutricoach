@@ -11,8 +11,12 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
-      - name: Install Capacitor
-        script: npm install -g @capacitor/cli
+      - name: Create www directory
+        script: |
+          mkdir -p www && cp index.html www/
+          mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
+          curl -L "https://raw.githubusercontent.com/bensaidyacine34150-stack/nutricoach/main/icon.png" -o /tmp/icon.png
+          sips -z 1024 1024 /tmp/icon.png --out ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
       - name: Create www directory
         script: mkdir -p www && cp index.html www/
       - name: Add iOS platform
