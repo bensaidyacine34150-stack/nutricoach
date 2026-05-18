@@ -6,8 +6,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.yacine.nutricoach
-        certificate: NutriCoach Distribution
-        provisioning_profile: NutriCoach Distribution
       groups:
         - app_store
     scripts:
@@ -47,35 +45,4 @@ workflows:
           <dict>
               <key>method</key>
               <string>app-store</string>
-              <key>teamID</key>
-              <string>PZN5YABHWZ</string>
-              <key>signingStyle</key>
-              <string>manual</string>
-              <key>provisioningProfiles</key>
-              <dict>
-                  <key>com.yacine.nutricoach</key>
-                  <string>NutriCoach Distribution</string>
-              </dict>
-              <key>uploadSymbols</key>
-              <true/>
-              <key>compileBitcode</key>
-              <false/>
-          </dict>
-          </plist>
-          EOF
-          xcodebuild -exportArchive \
-          -archivePath ios/App/App.xcarchive \
-          -exportPath ios/App/export \
-          -exportOptionsPlist /tmp/ExportOptions.plist
-      - name: Upload to App Store
-        script: |
-          echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
-          chmod 600 /tmp/AuthKey.p8
-          xcrun altool --upload-app \
-          --type ios \
-          --file ios/App/export/App.ipa \
-          --apiKey $KEY_ID \
-          --apiIssuer $ISSUER_ID \
-          --private-key /tmp/AuthKey.p8
-    artifacts:
-      - ios/App/export/*.ipa
+              <key>teamID
