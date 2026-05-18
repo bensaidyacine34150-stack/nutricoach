@@ -19,11 +19,17 @@ workflows:
         script: npx cap add ios || true
       - name: Sync Capacitor
         script: npx cap sync ios
-      - name: Fix Pods signing
-        script: |
-          find ios/App/Pods -name "*.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' {} \; || true
       - name: Install CocoaPods
         script: cd ios/App && pod install
+      - name: Fix signing
+        script: |
+          cd ios/App
+          # Set Automatic for all Pods targets
+          sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' Pods/Pods.xcodeproj/project.pbxproj || true
+          sed -i '' '/PROVISIONING_PROFILE_SPECIFIER/d' Pods/Pods.xcodeproj/project.pbxproj || true
+          sed -i '' '/PROVISIONING_PROFILE/d' Pods/Pods.xcodeproj/project.pbxproj || true
+          # Set Manual only for main App target
+          sed -i '' 's/CODE_SIGN_STYLE = Automatic/CODE_SIGN_STYLE = Manual/g' App.xcodeproj/project.pbxproj || true
       - name: Build iOS
         script: |
           xcodebuild -workspace ios/App/App.xcworkspace \
@@ -45,4 +51,35 @@ workflows:
           <dict>
               <key>method</key>
               <string>app-store</string>
-              <key>teamID
+              <key>teamID</key>
+              <string>PZN5YABHWZ</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>provisioningProfiles</key>
+              <dict>
+                  <key>com.yacine.nutricoach</key>
+                  <string>NutriCoach Distribution</string>
+              </dict>
+              <key>uploadSymbols</key>
+              <true/>
+              <key>compileBitcode</key>
+              <false/>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+          -archivePath ios/App/App.xcarchive \
+          -exportPath ios/App/export \
+          -exportOptionsPlist /tmp/ExportOptions.plist
+      - name: Upload to App Store
+        script: |
+          echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
+          chmod 600 /tmp/AuthKey.p8
+          xcrun altool --upload-app \
+          --type ios \
+          --file ios/App/export/App.ipa \
+          --apiKey $KEY_ID \
+          --apiIssuer $ISSUER_ID \
+          --private-key /tmp/AuthKey.p8
+    artifacts:
+      - ios/App/export/*.ipa
