@@ -33,7 +33,7 @@ workflows:
           DEVELOPMENT_TEAM=PZN5YABHWZ \
           CODE_SIGN_STYLE=Manual \
           CODE_SIGN_IDENTITY="Apple Distribution" \
-          PROVISIONING_PROFILE_SPECIFIER="NutriCoach Distribution" \
+          PROVISIONING_PROFILE_SPECIFIER="Distribution NutriCoach" \
           archive \
           -allowProvisioningUpdates \
           -destination "generic/platform=iOS"
