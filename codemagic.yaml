@@ -84,8 +84,8 @@ workflows:
           xcrun altool --upload-app \
           --type ios \
           --file /tmp/export/App.ipa \
-          --apiKey $KEY_ID \
-          --apiIssuer $ISSUER_ID \
+          --apiKey F63VFB7L7F \
+          --apiIssuer a4edd9ef-1ccf-429a-8f8f-49950b9207f8 \
           --private-key /tmp/AuthKey.p8
     artifacts:
       - /tmp/export/*.ipa
