@@ -36,6 +36,19 @@ workflows:
             end
             project.save
           "
+      - name: Build iOS
+        script: |
+          xcodebuild -workspace ios/App/App.xcworkspace \
+          -scheme App \
+          -configuration Release \
+          -archivePath /tmp/App.xcarchive \
+          DEVELOPMENT_TEAM=PZN5YABHWZ \
+          CODE_SIGN_STYLE=Manual \
+          CODE_SIGN_IDENTITY="Apple Distribution: Yacine Bensaid (PZN5YABHWZ)" \
+          PROVISIONING_PROFILE_SPECIFIER="NutriCoach Distribution" \
+          archive \
+          -destination "generic/platform=iOS"
+      - name: Export IPA
         script: |
           cat > /tmp/ExportOptions.plist << EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -60,12 +73,19 @@ workflows:
           </dict>
           </plist>
           EOF
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/App.xcarchive -exportPath $CM_BUILD_DIR/export -exportOptionsPlist /tmp/ExportOptions.plist
+          xcodebuild -exportArchive \
+          -archivePath /tmp/App.xcarchive \
+          -exportPath /tmp/export \
+          -exportOptionsPlist /tmp/ExportOptions.plist
       - name: Upload to App Store
         script: |
           echo "$APP_STORE_KEY_CONTENT" > /tmp/AuthKey.p8
           chmod 600 /tmp/AuthKey.p8
-          xcrun altool --upload-app --type ios --file $CM_BUILD_DIR/export/App.ipa --apiKey $KEY_ID --apiIssuer $ISSUER_ID --private-key /tmp/AuthKey.p8
+          xcrun altool --upload-app \
+          --type ios \
+          --file /tmp/export/App.ipa \
+          --apiKey $KEY_ID \
+          --apiIssuer $ISSUER_ID \
+          --private-key /tmp/AuthKey.p8
     artifacts:
-      - $CM_BUILD_DIR/export/*.ipa
-      
+      - /tmp/export/*.ipa
