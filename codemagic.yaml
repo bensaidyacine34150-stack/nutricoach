@@ -18,11 +18,9 @@ workflows:
         script: npm run build
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
-      - name: Create www directory
+     - name: Create www directory
         script: |
           mkdir -p www && cp index.html www/
-          mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
-          cp icon.png ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
       - name: Add iOS platform
         script: npx cap add ios || true
       - name: Sync Capacitor
