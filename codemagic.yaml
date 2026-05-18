@@ -21,15 +21,22 @@ workflows:
         script: npx cap sync ios
       - name: Install CocoaPods
         script: cd ios/App && pod install
-      - name: Fix signing
+    - name: Fix signing
         script: |
           cd ios/App
-          # Set Automatic for all Pods targets
-          sed -i '' 's/CODE_SIGN_STYLE = Manual/CODE_SIGN_STYLE = Automatic/g' Pods/Pods.xcodeproj/project.pbxproj || true
-          sed -i '' '/PROVISIONING_PROFILE_SPECIFIER/d' Pods/Pods.xcodeproj/project.pbxproj || true
-          sed -i '' '/PROVISIONING_PROFILE/d' Pods/Pods.xcodeproj/project.pbxproj || true
-          # Set Manual only for main App target
-          sed -i '' 's/CODE_SIGN_STYLE = Automatic/CODE_SIGN_STYLE = Manual/g' App.xcodeproj/project.pbxproj || true
+          cat >> Podfile << 'EOF'
+          
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
+      config.build_settings['CODE_SIGN_IDENTITY'] = ''
+      config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ''
+    end
+  end
+end
+EOF
       - name: Build iOS
         script: |
           xcodebuild -workspace ios/App/App.xcworkspace \
