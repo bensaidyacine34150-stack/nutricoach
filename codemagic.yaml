@@ -11,22 +11,22 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
-      - name: Create www directory
-        script: |
-          mkdir -p www && cp index.html www/
-          mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
-          curl -L "https://raw.githubusercontent.com/bensaidyacine34150-stack/nutricoach/main/icon.png" -o /tmp/icon.png
-          sips -z 1024 1024 /tmp/icon.png --out ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
+      - name: Install Capacitor
+        script: npm install -g @capacitor/cli
       - name: Create www directory
         script: mkdir -p www && cp index.html www/
       - name: Add iOS platform
-        script: npx cap add ios || true
-      - name: Sync Capacitor
-        script: npx cap sync ios || true
+        script: |
+          rm -rf ios
+          npx cap add ios
+      - name: Copy icon
+        script: |
+          mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
+          curl -L "https://raw.githubusercontent.com/bensaidyacine34150-stack/nutricoach/main/icon.png" -o ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
       - name: Install CocoaPods
         script: |
           cd ios/App
-          pod install --repo-update
+          pod install
           ruby -e "
             require 'xcodeproj'
             project = Xcodeproj::Project.open('Pods/Pods.xcodeproj')
@@ -50,7 +50,7 @@ workflows:
           CODE_SIGN_STYLE=Manual \
           CODE_SIGN_IDENTITY="Apple Distribution: Yacine Bensaid (PZN5YABHWZ)" \
           PROVISIONING_PROFILE_SPECIFIER="NutriCoach Distribution" \
-          CURRENT_PROJECT_VERSION=2 \
+          CURRENT_PROJECT_VERSION=3 \
           MARKETING_VERSION=1.0 \
           archive \
           -destination "generic/platform=iOS"
