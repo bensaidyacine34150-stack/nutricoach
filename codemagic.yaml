@@ -23,6 +23,22 @@ workflows:
         script: |
           mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
           curl -L "https://raw.githubusercontent.com/bensaidyacine34150-stack/nutricoach/main/icon.png" -o ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
+          cat > ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json << 'EOF'
+          {
+            "images": [
+              {
+                "filename": "Icon-1024.png",
+                "idiom": "universal",
+                "platform": "ios",
+                "size": "1024x1024"
+              }
+            ],
+            "info": {
+              "author": "xcode",
+              "version": 1
+            }
+          }
+          EOF
       - name: Install CocoaPods
         script: |
           cd ios/App
