@@ -622,29 +622,26 @@ body::before {
       <div id="todayMeals"></div>
 
       <!-- CORRECTION 1 : SOURCES SCIENTIFIQUES VISIBLES -->
-      <div class="card" style="margin-bottom:14px;">
-        <div class="card-label">📚 Sources scientifiques</div>
-        <div style="font-size:0.72rem;color:var(--muted);margin-bottom:10px;">Cette application ne remplace pas un avis médical professionnel.</div>
-        <a href="https://www.who.int/nutrition" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);text-decoration:none;">
-          <span style="font-size:1rem;">🌍</span>
-          <span style="font-size:0.78rem;color:var(--teal);">OMS — Organisation Mondiale de la Santé</span>
-        </a>
-        <a href="https://www.anses.fr/fr/content/les-références-nutritionnelles" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);text-decoration:none;">
-          <span style="font-size:1rem;">🇫🇷</span>
-          <span style="font-size:0.78rem;color:var(--teal);">ANSES — Agence Nationale Sécurité Alimentaire</span>
-        </a>
-        <a href="https://www.hsph.harvard.edu/nutritionsource" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);text-decoration:none;">
-          <span style="font-size:1rem;">🎓</span>
-          <span style="font-size:0.78rem;color:var(--teal);">Harvard T.H. Chan — Nutrition Source</span>
-        </a>
-        <a href="https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 0;text-decoration:none;">
-          <span style="font-size:1rem;">🏥</span>
-          <span style="font-size:0.78rem;color:var(--teal);">Mayo Clinic — Nutrition & Healthy Eating</span>
-        </a>
-      </div>
-
-      <div class="page-spacer"></div>
-    </div>
+     <div class="card" style="margin-bottom:14px;">
+  <div class="card-label">📚 Sources scientifiques</div>
+  <div style="font-size:0.72rem;color:var(--muted);margin-bottom:10px;">Cette application ne remplace pas un avis médical professionnel.</div>
+  <div onclick="openLink('https://www.who.int/nutrition')" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
+    <span style="font-size:1rem;">🌍</span>
+    <span style="font-size:0.78rem;color:var(--teal);">OMS — Organisation Mondiale de la Santé</span>
+  </div>
+  <div onclick="openLink('https://www.anses.fr')" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
+    <span style="font-size:1rem;">🇫🇷</span>
+    <span style="font-size:0.78rem;color:var(--teal);">ANSES — Agence Nationale Sécurité Alimentaire</span>
+  </div>
+  <div onclick="openLink('https://www.hsph.harvard.edu/nutritionsource')" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
+    <span style="font-size:1rem;">🎓</span>
+    <span style="font-size:0.78rem;color:var(--teal);">Harvard T.H. Chan — Nutrition Source</span>
+  </div>
+  <div onclick="openLink('https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating')" style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;">
+    <span style="font-size:1rem;">🏥</span>
+    <span style="font-size:0.78rem;color:var(--teal);">Mayo Clinic — Nutrition & Healthy Eating</span>
+  </div>
+</div>
     <!-- PROGRAMME -->
     <div class="page" id="page-programme">
       <div class="card" style="margin-bottom:14px;">
@@ -830,6 +827,19 @@ var S = {
 try { var d=localStorage.getItem('nc_v2'); if(d) S=Object.assign({},S,JSON.parse(d)); } catch(e){}
 function save(){ try{ localStorage.setItem('nc_v2',JSON.stringify(S)); }catch(e){} }
 
+function openLink(url){
+  try {
+    if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Browser){
+      window.Capacitor.Plugins.Browser.open({url: url});
+    } else {
+      window.open(url, '_system');
+    }
+  } catch(e) {
+    window.open(url, '_blank');
+  }
+}
+
+function initNavButtons(){
 function initNavButtons(){
   var pages = ['dashboard','programme','nutrition','coach','progres'];
   pages.forEach(function(page){
