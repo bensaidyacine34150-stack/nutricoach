@@ -11,8 +11,8 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npm install
-          npm install @capacitor/browser
+          npm install --legacy-peer-deps
+          npm install @capacitor/browser --legacy-peer-deps
           npm install @capgo/capacitor-purchases --legacy-peer-deps
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
