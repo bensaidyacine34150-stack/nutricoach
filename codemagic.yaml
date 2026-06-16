@@ -13,7 +13,7 @@ workflows:
         script: |
           npm install
           npm install @capacitor/browser
-          npm install @capgo/capacitor-purchases
+          npm install @capgo/capacitor-purchases --legacy-peer-deps
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
       - name: Create www directory
