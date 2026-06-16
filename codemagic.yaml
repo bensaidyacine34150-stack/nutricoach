@@ -10,9 +10,10 @@ workflows:
         - app_store
     scripts:
       - name: Install dependencies
-  script: |
-    npm install
-    npm install @capacitor/browser
+        script: |
+          npm install
+          npm install @capacitor/browser
+          npm install @capgo/capacitor-purchases
       - name: Install Capacitor
         script: npm install -g @capacitor/cli
       - name: Create www directory
@@ -25,7 +26,7 @@ workflows:
         script: |
           mkdir -p ios/App/App/Assets.xcassets/AppIcon.appiconset/
           curl -L "https://raw.githubusercontent.com/bensaidyacine34150-stack/nutricoach/main/icon.png" -o ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
-          cat > ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json << 'EOF'
+          cat > ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json << 'ICONEOF'
           {
             "images": [
               {
@@ -40,7 +41,7 @@ workflows:
               "version": 1
             }
           }
-          EOF
+          ICONEOF
       - name: Install CocoaPods
         script: |
           cd ios/App
@@ -74,7 +75,7 @@ workflows:
           -destination "generic/platform=iOS"
       - name: Export IPA
         script: |
-          cat > /tmp/ExportOptions.plist << EOF
+          cat > /tmp/ExportOptions.plist << EOF2
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
@@ -96,7 +97,7 @@ workflows:
               <false/>
           </dict>
           </plist>
-          EOF
+          EOF2
           xcodebuild -exportArchive \
           -archivePath /tmp/App.xcarchive \
           -exportPath /tmp/export \
@@ -104,14 +105,14 @@ workflows:
       - name: Upload to App Store
         script: |
           mkdir -p ~/.appstoreconnect/private_keys
-          cat > ~/.appstoreconnect/private_keys/AuthKey_4DFLDHAY64.p8 << 'EOF'
+          cat > ~/.appstoreconnect/private_keys/AuthKey_4DFLDHAY64.p8 << 'KEYEOF'
           -----BEGIN PRIVATE KEY-----
           MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg3k6jLpgZLoWy6ScU
           6cs9p3acxdNDC3ugX5XpwYHyCnSgCgYIKoZIzj0DAQehRANCAASy1Syfo8DIvy0G
           cqKlOJaNLsGaJSNHCc8D0DalvWgO7OO7SulLNQk5bEL99Hl/zUQGMQs7/zGnUWdv
           bmOFngsr
           -----END PRIVATE KEY-----
-          EOF
+          KEYEOF
           chmod 600 ~/.appstoreconnect/private_keys/AuthKey_4DFLDHAY64.p8
           xcrun altool --upload-app \
           --type ios \
